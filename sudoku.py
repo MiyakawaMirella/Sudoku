@@ -67,24 +67,32 @@ for i in range(0, 9):
 			controleColuna = numC - 1
 			controlePosicao = numC
 
-			if numC != 0 and numC <= 8 and controleColuna >= 0:
+			if numC >= 0 and numC <= 8 and controleColuna >= 0:
+
 				while controleColuna >= 0:
 					print("numeroC", numC)
+
+					if len(listaControleC) == 9:
+						listaControleC.clear()
+
 					if numero == coluna[controleColuna]:
+
 						while True:
 							num = random.randint(1, 9)
 
 							if num in listaControleC:
 								continue
+
 							else:
 								print("trocando o número", "por ", num)
 								posicao = f"{controlePosicao}"
 								enderecos[posicao] = num
 								listaControleC.append(num)
 								print(listaControleC)
+
 								break
 					else:
-						print("úmero adicionado!", numero)
+						print("Número adicionado!", numero)
 						listaControleC.append(numero)
 						print(listaControleC)
 						numC += 1
