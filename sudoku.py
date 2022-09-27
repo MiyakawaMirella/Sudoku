@@ -9,14 +9,16 @@ import random
 
 # declaração de variáveis
 quadrado = []
-quadradinho = []
+quadradinhos = []
 controleQuadradinho = 0
 
 
 def Caminho(numeroEntrada, controleEndereco, listaEndereco):
-	str(numeroEntrada) ; str(controleEndereco)
-	listaEndereco[controleEndereco] = f"quadrado[{numeroEntrada}]"
-	int(numeroEntrada); int(controleEndereco)
+	str(numeroEntrada)
+	str(controleEndereco)
+	listaEndereco[controleEndereco] = numeroEntrada
+	int(numeroEntrada)
+	int(controleEndereco)
 
 
 def linhaVerificacao():
@@ -37,6 +39,7 @@ def linhaVerificacao():
 while len(quadrado) < (9 * 9):
 	# escolhe números aleatórios e verifica se possui número iguais
 	linhaVerificacao()
+
 
 # Separa os números em colunas e verifica se há números iguais --> caso for reinicia o processo
 for i in range(0, 9):
@@ -65,57 +68,47 @@ for i in range(0, 9):
 		while numC < len(coluna):
 			# Pega as últimos números
 			controleColuna = numC - 1
-			controlePosicao = numC
 
-			if numC >= 0 and numC <= 8 and controleColuna >= 0:
-
-				while controleColuna >= 0:
-					print("numeroC", numC)
-
+			if 0 <= controleColuna <= 8:
+				for x in range(0, 8):
 					if len(listaControleC) == 9:
 						listaControleC.clear()
+					elif controleColuna < 0:
+						numC += 1
+						break
 
 					if numero == coluna[controleColuna]:
-
 						while True:
 							num = random.randint(1, 9)
 
 							if num in listaControleC:
 								continue
-
 							else:
-								print("trocando o número", "por ", num)
-								posicao = f"{controlePosicao}"
-								enderecos[posicao] = num
-								listaControleC.append(num)
-								print(listaControleC)
-
+								if numC >= 9:
+									break
+								else:
+									quadrado[enderecos[numC]] = num
+									listaControleC.append(num)
+									numC += 1
 								break
 					else:
-						print("Número adicionado!", numero)
-						listaControleC.append(numero)
-						print(listaControleC)
-						numC += 1
+						if numero not in listaControleC:
+							listaControleC.append(numero)
 						controleColuna -= 1
-						break
-			else:
+			elif numC == 0:
 				numC += 1
-				break
-
-
-		print("Coluna", coluna)
-		print("ListaControle", listaControleC)
+			break
 
 # Verificação por quadradinhos
 # Declarando variáveis
-"""
+
 q = 0
 controle = 0
 controle2 = 3
+quadradinho = []
 
 # Separação dos quadradinhos
 while q <= (len(quadrado) * 3):
-	quadradinhos = []
 	enderecos = {}
 
 	# separação dos quadradinhos
@@ -130,27 +123,31 @@ while q <= (len(quadrado) * 3):
 		Caminho(q, controle, enderecos)
 		q += 1
 	q += 6
-
-	print(quadradinho)
 	controle += 1
-
 	if len(quadradinho) == 9:
+		listaQuadradinho = []
+		for i in range(0, 9):
+			listaQuadradinho.append(quadradinho[i])
+
+		quadradinhos.append(listaQuadradinho)
+		quadradinho.clear()
+
+	"""if len(quadradinho) == 9:
 		for i in range(len(quadradinho)):
 			numero = quadradinho[i]
 			listaControle = [numero]
-
+	
 			# Pega as últimos números
 			controleQuadradinho = i - 1
 			tamanhoD = i
 			if tamanhoD != 0 and tamanhoD <= 8:
 				if numero == quadradinho[controleQuadradinho]:
-
+	
 					while True:
 						num = random.randint(1, 9)
-
-						if (num in listaControle) == True:
+	
+						if num in listaControle:
 							continue
-
 						else:
 							endereco = ""
 							enderecos[tamanhoD] = endereco
@@ -161,8 +158,9 @@ while q <= (len(quadrado) * 3):
 					listaControle.append(numero)
 				controleQuadradinho -= 1
 			quadradinhos.append(listaControle)
-		quadradinho.clear()
-"""
+		quadradinho.clear()"""
+
+
 print()
 linhaNova = []
 for i in range(len(quadrado)):
