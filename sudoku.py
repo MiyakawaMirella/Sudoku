@@ -9,7 +9,6 @@ import random
 
 # declaração de variáveis
 quadrado = []
-quadradinhos = []
 controleQuadradinho = 0
 
 
@@ -103,14 +102,14 @@ for i in range(0, 9):
 # Declarando variáveis
 
 q = 0
-controle = 0
+controleD = 0
 controle2 = 3
-quadradinho = []
+a = 0
+listaQuadradinho = []
+enderecosD = {}
 
 # Separação dos quadradinhos
 while q <= (len(quadrado) * 3):
-	enderecos = {}
-
 	# separação dos quadradinhos
 	for i in range(3):
 		if q > 80 and controle2 <= 6:
@@ -119,47 +118,73 @@ while q <= (len(quadrado) * 3):
 		elif q > 80:
 			break
 
-		quadradinho.append(quadrado[q])
-		Caminho(q, controle, enderecos)
+		listaQuadradinho.append(quadrado[q])
+		Caminho(q, controleD, enderecosD)
 		q += 1
+		controleD += 1
+
+	quadradinho = []
 	q += 6
-	controle += 1
-	if len(quadradinho) == 9:
-		listaQuadradinho = []
+	numD = 0
+	macaco = 0
+
+	if len(listaQuadradinho) == 9:
+		controle = 0
 		for i in range(0, 9):
-			listaQuadradinho.append(quadradinho[i])
+			quadradinho.append(listaQuadradinho[i])
+		listaQuadradinho.clear()
 
-		quadradinhos.append(listaQuadradinho)
-		quadradinho.clear()
+		for index in range(len(quadradinho)):
+			listaControle = [quadradinho[0]]
 
-	"""if len(quadradinho) == 9:
-		for i in range(len(quadradinho)):
-			numero = quadradinho[i]
-			listaControle = [numero]
-	
-			# Pega as últimos números
-			controleQuadradinho = i - 1
-			tamanhoD = i
-			if tamanhoD != 0 and tamanhoD <= 8:
-				if numero == quadradinho[controleQuadradinho]:
-	
-					while True:
-						num = random.randint(1, 9)
-	
-						if num in listaControle:
-							continue
-						else:
-							endereco = ""
-							enderecos[tamanhoD] = endereco
-							enderecos = num
-							listaControle.append(num)
+			while numD < len(quadradinho):
+				numero = quadradinho[index]
+				controleQuadradinho = index - 1
+
+				# Pega as últimos números
+				if 0 <= controleQuadradinho <= 8:
+					for x in range(0, 8):
+						if len(listaControle) == 9:
+							listaControle.clear()
+							
+						elif controleQuadradinho < 0:
+							if macaco == 1:
+								print(f"{numD} --> númeroD controle menor q 0")
+								numD += 1
+								macaco = 0
+								print(f"{numD} --> númeroD controle menor q 0 - depois")
+							else:
+								macaco += 1
 							break
-				else:
-					listaControle.append(numero)
-				controleQuadradinho -= 1
-			quadradinhos.append(listaControle)
-		quadradinho.clear()"""
 
+						if numero == quadradinho[controleQuadradinho]:
+							while True:
+								num = random.randint(1, 9)
+
+								if num in listaControle:
+									continue
+								else:
+									if numD >= 9:
+										break
+									else:
+										print(f"{numD} --> númeroD troca")
+										quadrado[enderecosD[numD]] = num
+										listaControle.append(num)
+										numD += 1
+										print(f"{numD} --> númeroD troca - depois")
+									break
+						else:
+							if numero not in listaControle:
+								listaControle.append(numero)
+							controleQuadradinho -= 1
+				elif numD == 0:
+					print(f"{numD} --> númeroD zerinho bolinha")
+					numD += 1
+					print(f"{numD} --> númeroD zerinho bolinha - depois")
+				break
+
+		quadradinho.clear()
+		enderecosD.clear()
 
 print()
 linhaNova = []
